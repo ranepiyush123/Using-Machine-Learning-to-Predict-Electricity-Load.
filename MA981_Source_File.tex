@@ -1,0 +1,528 @@
+\documentclass[12pt, a4paper,twoside]{report}
+
+%% Every LaTeX document begins with a preamble, which loads packages and
+%% defines various settings to make the document look right. Mostly,
+%% you can ignore everything in this template before \begin{document} on line 74
+
+\usepackage{mathtools,amsthm,amsfonts} % Enable useful mathematical symbols/environments
+\usepackage{graphicx} % Enable graphics
+\usepackage{fancyhdr,titlesec,microtype} % enable various formatting commands
+\usepackage[margin=2.5cm]{geometry} % Set margin size
+\usepackage{palatino} % Set the font
+\usepackage[latin1]{inputenc} % Allow you to input accents, umlauts and other characters
+\usepackage[T1]{fontenc} % Lets LaTeX print a wider array of characters
+\usepackage{tikz,tikz-3dplot,tkz-euclide} % Enable tikz drawings
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+
+\usepackage{xcolor} % Enable coloured elements
+\definecolor{mypurple}{HTML}{622567} %%% Purple
+\definecolor{myred}{HTML}{D55C19} %%%EssexOrange
+\definecolor{myblue}{HTML}{007A87} %%%Seagrass
+
+% For technical reasons, hyperref should be loaded after all other packages
+\usepackage[colorlinks,linkcolor=myblue,citecolor=mypurple]{hyperref}
+
+\renewcommand{\baselinestretch}{1.5} % 1.5 line spacing
+
+% Define \begin{theorem}, \end{theorem}, etc.
+\theoremstyle{plain} % The following will be italicised
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition} % The following environments will not use italics
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark} % The following environments will not use italics or bold titles
+\newtheorem{remark}[theorem]{Remark}
+
+\numberwithin{equation}{chapter}
+
+% Fancy headings
+\pagestyle{fancy}
+\setlength{\headheight}{15pt}
+\fancyheadoffset[LE,RO]{0pt}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\fancyhf{}
+\fancyhead[LE]{\makebox[0pt][l]{\thepage}\hfill\leftmark}
+\fancyhead[RO]{\rightmark\hfill\makebox[0pt][r]{\thepage}}
+\fancypagestyle{plain}{%
+    \fancyhead{} % get rid of headers
+    \renewcommand{\headrulewidth}{0pt} % and the line
+}
+
+% Fancy chapter numbers
+\titleformat{\chapter}[display]
+    {\normalfont\bfseries\color{myred}}
+    {\filleft\hspace*{-60pt}%
+        \rotatebox[origin=c]{90}{%
+            \normalfont\color{black}\Large%
+            \textls[180]{\textsc{\chaptertitlename}}%
+        }
+        \hspace{10pt}%
+        {\setlength\fboxsep{0pt}%
+            \colorbox{myred}{\parbox[c][3cm][c]{2.5cm}{%
+                \centering\color{white}\fontsize{80}{90}\selectfont\thechapter}%
+            }
+        }
+    }
+    {10pt}
+    {\titlerule[2.5pt]\vskip3pt\titlerule\vskip4pt\LARGE\sffamily}
+
+\begin{document} % Start your document
+
+%%%%%%%%%%%% BEGIN TITLE PAGE %%%%%%%%%%%%
+
+\thispagestyle{empty} % For the title page, no header / footer
+
+\noindent
+    \begin{minipage}{0.1\textwidth}
+    \includegraphics[height=4.5em]{essex.png}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.5\textwidth}
+    \begin{center}
+        \renewcommand\familydefault{\sfdefault}
+        \fontfamily{phv}\selectfont
+        {\large School of Mathematics, Statistics and Actuarial Science}
+    \end{center}
+    \end{minipage}
+
+\begin{center}
+    \noindent\textcolor{myred}{\rule{\linewidth}{4.8pt}}
+    
+    \vspace{2em}
+    \noindent {\LARGE \sc MA981 Dissertation}
+    
+    \vspace{3em}
+    \noindent {\Huge{\color{myblue} Using Machine Learning to Predict Electricity Load.}}
+    
+    \vspace{3em}
+    \noindent {\Large \bf Piyush Rane}\\
+    \noindent {\Large \bf Registration No: 2309952} 
+    \vfill
+    \noindent {\Large {Supervisor:} {\color{mypurple} \bf Dr Georgios Papamikos}}
+    
+    \vspace{0.5em}
+    \noindent\textcolor{myred}{\rule{\linewidth}{4.8pt}}
+    
+    \vspace{2em}
+    {\Large \today }
+    
+    {\Large Colchester}
+\end{center}
+
+\clearpage
+
+%%%%%%%%%%%% END TITLE PAGE %%%%%%%%%%%%
+\begin{abstract}
+The dissertation examines machine learning techniques used for electricity demand forecasting and compares their performances: the traditional ARIMA and Linear Regression, and more advanced ones such as Support Vector Machines, Random Forest, and Artificial Neural Networks. Using a detailed dataset including factors like temperature and energy usage on an hourly basis, the research will investigate the performance of each of these models.
+
+The key findings are that the mechanism techniques utilized in advanced model methods, such as those involving Random Forest and Artificial Neural Networks, have a much better performance compared to conventional methods in the forecasting of electricity loads. Advanced models are more capable of handling field realities that may involve abrupt variations in weather, among other aspects relating to consumer consumption some factors that most traditional methods obviously would have no seamless way of managing. These advanced methods do quite well in identifying patterns and relationships within the data that may be rather hidden and not overtly apparent.
+
+The present work thus provides useful insight into a structured model evaluation approach to both the researchers and the professionals of the industry. Therefore, it can be inferred from this study that the traditional methods are simple but not that effective in complex forecasting tasks, while machine learning models like Random Forest and Artificial Neural Networks are reliable and accurate in predicting the demands of electricity for all conditions.
+
+This study not only gives a transparent framework for model assessment but can also provide a guide toward future work in the field. It presents practical recommendations for improving forecasting accuracy and enables energy companies to make more informed decisions regarding their load management strategies.
+
+\end{abstract}
+
+\tableofcontents
+\newpage
+\listoffigures
+\newpage
+% If you have lots of figures with captions / numbers, uncomment the following line
+% \listoffigures
+
+% If you have lots of tables and want a list of them, uncomment the following line
+% \listoftables
+
+\chapter{Introduction}\label{ch:1}
+Electricity load forecasting is important in planning and managing the power system. With appropriate forecasted future electricity demand, energy providers can ensure the stability of the grid's operational and functional efficiency. This helps them balance the supply with the demand to reduce unnecessary costs and prevent power shortages or overloads. Correct forecasts also raise the overall stability of the electrical grid to accept changes without issues in demand. Ultimately, this makes electricity more reliable and more affordable to all; because power companies can manage the resources better and avoid costly mistakes \cite{hong2016probabilistic}.
+\newline
+\newline
+Daily industrial production, weather changes, human beings' daily behavioral changes, and sudden other events lead to the fluctuation of electricity consumption. Estimation in the use of power is very complicated and variable; therefore, it is difficult to predict as its pattern is not clear and regular. For instance, sudden weather changes may cause a surge in heating or cooling energy demand and sudden levels of industrial activity may cause variations in consumption\cite{zhang1998forecasting}
+Daily industrial production, weather changes, human beings' daily behavioral changes, and sudden other events lead to the fluctuation of electricity consumption. Estimation in the use of power is very complicated and variable; therefore, it is difficult to predict as its pattern is not clear and regular. For instance, sudden weather changes may cause a surge in heating or cooling energy demand and sudden levels of industrial activity may cause variations in consumption.
+Forecasts with accuracy are essential. An underestimation will lead to power outages and shortages, while an overestimation could result in a waste of energy and higher costs. Both eventualities run the risk of disrupted customer services and losses for the providers. Greater accuracy in forecasting will be required to ensure reliable and efficient energy systems, where supply will meet demand without unnecessary risks or costs\cite{zhang1998forecasting}.
+\newline
+\newline
+Electricity forecasting could be done effectively using Machine Learning, where huge amounts of data are analyzed to identify patterns, which may be difficult and complex for the human eye to identify. Models of ML learn from data, enhancing their predictions as time goes on and processing more information. Each of these models has its strong and weak points.
+
+For example, Support Vector Machines (SVM) can work effectively with non-linear problems; hence, they are useful in instances when the data is complex and multi-dimensional. On the contrary, RNNs work very well to find patterns across time, and this suitability extends the applications to tasks where the prediction involves sequences and the future depends upon previous data. Traditional models, such as ARIMA and linear regression, are simpler but may struggle with more intricate data patterns. The random forest is considered one of the powerful ensemble methods that can handle big datasets with rather good predictive performance in cases where many factors influence an outcome.
+The flexibility and power of the ML models in electricity demand forecasting lie in their ease of adaptation to different types of data and improvement with experience.\cite{sapankevych2009time,gers2000learning}.
+With the use of Machine Learning in load forecasting, this would be done way more effectively, for it will provide high accuracy in predicting electricity demand. For reasons such as improving efficiency in energy systems, ML can handle large sets of data and detect complex patterns that might be invisible to traditional methods; thus, providing better predictions over time.
+
+Where already ML proves useful: Smart grid optimization of energy distribution for much better forecasting of usage patterns that could lead to more efficiency and cost-effectiveness of the grid. Power economy in homes due to power management through ML analysis of consumption patterns and generating suggestions on how to conserve energy and maintain less operating cost. Overall, integrating ML into energy forecasting can make an energy system smarter and more efficient. \cite{shi2017deep}.
+\newline
+\newline
+Recent research has shown that machine learning is effective in the development of energy demand forecasts. With increasingly enhanced ML techniques, power systems become smarter and more flexible. That would mean that tomorrow's power grid is more capable of anticipating and responding to changes in energy demand and finally resilient and efficient. Also, ML can be used in power systems for the optimization of energy distribution to reduce waste and enhance its reliability. This evolution will result in grids that are capable of not only being responsive but also robust enough to cope with fluctuations and maintain stability in consideration of changes in demand patterns\cite{mandal2006neural,hippert2001neural}. The immediate practical use of such machine-learning techniques may be found in the identification of anomalous power consumption that will contribute to the prevention of system failures.
+\cite{chou2014real}.
+\newline
+\newline
+Based on foundational research, this dissertation compares different machine learning methods for the forecast of electricity load to extend existing knowledge in the field\cite{smola2004tutorial,hyndman2018forecasting,liaw2002classification} The study will consider ARIMA, SVM, and Random Forest models with a view to emphasizing strengths and weaknesses when applied in practice. An Objective understanding of the performance of these techniques on real data would give useful insight into which of these methods produces better results. These assessments set higher thresholds for electricity load forecasting to raise accuracy and efficiency in power management systems.
+\newline
+\newline
+\newline
+\textbf{Objectives and Aim}:
+\newline
+This dissertation deals with the performance evaluation of some machine learning techniques concerning their applicability in forecasting electricity load. Models like ARIMA, SVM, Random Forest, and ANN will be evaluated which method can give a better prediction. In this regard, the study focuses on identifying the strength of the different techniques with the view to establishing which model can best handle the intricacies involved in electricity demand forecasting. The ultimate focus is to establish a model that offers the most reliable forecast and is closest to actual forecasts so that the load forecasting is closer to reality and improves overall power system management.
+\newline
+The following are the study/dissertation objectives:
+\begin{itemize}
+    \item Explore the distribution and properties of variables. Analyze the dataset through exploratory data analysis of the trend in the dataset.
+    \item Construction of the prediction models using Recurrent Neural Network, Support Vector Machines, Auto Regressive Integrated Moving Average, Random Forest, and Linear Regression.
+    \item Model ranking based on their performances.
+\end{itemize}
+
+\chapter{Literature Review}\label{ch:2}
+The most important way to head towards a world that is changing drastically is through load forecasting of electricity. It guarantees grid stability, fulfills the needs of energy management to the fullest, and also ensures that the resources are optimally utilized. Therefore, forecasting is helpful in balancing the supply with demand by reducing operation costs and therefore lesser wastage through its capability of predicting the potential future changes in demand. This, in a way, stabilizes the grid and minimizes disruptions, hence leading to efficiency and sustainability within the energy system. Since the patterns of energy use are increasingly changing due to the influences of weather and customer behavior, accurate forecasting is an element of good design and efficient operation in modern power systems.\cite{zhang2021review}. Most of the traditional methods in the forecasting of electricity load involve time-series analysis and multiple linear regression. These normally have weak capabilities in modeling complicated nonlinear natures that may be present in the load data. These are usually tailored for simpler linear relations; thus, they cannot capture appropriately the intricate patterns influenced by such factors as weather, consumer behavior, and seasonality. Their accuracies decrease since real-world demand for electricity varies in a very unilaterally unpredictable way. Limitations with these approaches bring out the need for more advanced approaches possibly machine learning-based-that can deal with nonlinear relationships better in modern energy systems.\cite{li2023short}. However, It appears that machine learning methods are becoming more popular for use in electrical load forecasting.\cite{long2022prophet}.
+\newline
+\newline
+\textbf{The Role Of Machine Learning's in Predicting The Electrical Load}
+\newline
+In the last couple of years, because of its good capability and efficiency in handling data complexities and uncertainties, recently, machine learning techniques have been turned to by researchers for forecasting electricity load\cite{behl2016data}. Machine learning techniques improve forecasting accuracy by identifying intricate patterns in power consumption. \cite{hafeez2020electric}. This will help optimize the generation and distribution to ensure resource utilization hence an effective operation of the power grid. With accurate demand forecasting, grid operators are able to avoid overproduction or shortages, reduction of wastage, and maintenance of system stability. It helps in optimizing power generation and distribution, hence ensuring good use of resources and maintaining the stability of the grid. Precise load forecasting also plays a vital role in the supplementation of these systems with renewable resources, such as solar and wind. These are intermittent resources; thus, proper demand projections ensure a stable supply of electricity by balancing out erratic supply and system demands. Machine learning becomes important in this regard for bettering the operational efficiency and decision-making in modern energy systems.
+\newline
+Among the most popular machine learning algorithms used in forecasting electricity load is ARIMA. Since it has been the most generally used method in time series analysis, traditionally, many works have applied it to forecast electricity demand. In fact, it is known to work particularly well for any kind of data that results from a temporal sequence. Because of its simplicity and proven accuracy when handling linear data patterns, ARIMA remains a go-to method in many applications of load forecasting.\cite{zhou2006trigonometric}.
+\newline
+
+ARIMA models were able to forecast peak daily load in a power system remarkably well, according to a researcher from Al-Musaylh while critically reviewing 77 earlier publications related to electrical demand forecasting.\cite{al2018short}.Thus, the range of models used for power demand and load forecasting are vast. Some of these include LRA, SVM, ANN, and random forest, among many others. Besides ARIMA, most of the machine learning algorithms applied to the sphere of electricity load forecasting have also had mixed success rates. In this, the simplest and most widely used algorithm is linear regression. Though simple and light to apply, it performs miserably in dealing with complex and nonlinear patterns of electricity demand.\cite{long2022prophet}.
+Farsi et al. Carried out a research work using Linear regression to forecast electricity load in a university building. The results reveal that this kind of method has provided relatively good precision in the short-term forecast, especially within an hour of the day. From the above results, it can be noticed that the mean absolute percentage error was about 5\% and hence Linear regression can be efficient in the case of a short-term load forecast, though dependent on different forecasting intervals and complexities of the data set.\cite{hafeez2020electric}.Yet another very well-known machine learning algorithm applied in the field of electricity load forecasting is support vector machines. Zhang et al. proposed one job in which Support vector regression was applied with the aid of the Weka utility for demand forecasting. It was proved that this technique gave very good load predictions and the mean absolute percentage error of about 3\% for one hour ahead forecasting. These results demonstrate that the support vector regression indeed does an excellent job of obtaining high accuracy for short-term electricity demand forecasting and is considered a strong option for complex tasks in energy management. \cite{zhang2021review}. 
+\newline
+
+Artificial neural networks have been one of the most popular approaches for load forecasting. Besides, machine learning methods have also been applied to the prediction of medium- and long-term power load, showing their potential to provide accurate forecasts for a long period of time over different forecasting horizons. Multiple regressions have been tried in medium-term load forecasting: Zhang et al. applied the multiple linear regression to medium-term load forecasting and attained a reasonable percentage-mean absolute percentage error of electricity load forecasting one day ahead is about 10\%. That would say that multiple linear regression can give useful forecasts in medium-term prediction but may be less precise than other methods.\cite{zhang2021review}. The same research also proposed a hybrid model that integrated ARIMA in an LSTM neural network for the forecast of the short-term load. Indeed, the combined approach substantially outperformed the result obtained when only applying the ARIMA model. Combining LSTM with ARIMA indeed handled complex patterns better and resulted in outstanding performances in general.\cite{zhang2021review}. 
+\newline
+
+Han et al. suggest a hybrid model that uses particle swarm optimization and support vector machines to anticipate the short-term electricity load more accurately. This can combine strengths from SVM in handling such data complexity with the optimization capabilities of PSO in fine-tuning model parameters. In this respect, the proposed hybrid model was tested against a stand-alone model of SVM in the study. These showed that the hybrid approach significantly outperformed an SVM model in isolation, leading to more accurate forecasts. By incorporating PSO to optimize the performance of the SVM, the hybrid model captures better the intricate patterns of electricity demand, leading to higher accuracy in prediction. This innovative combination is a good example of how the integration of optimization techniques with machine learning models can effectively enhance short-term load forecasting in the energy sector.\cite{nti2020electricity}\cite{ma2020short}.
+Apart from SVM, other machine learning algorithms have also been applied to the load of electricity forcasting \cite{wang2023comparative}. For example, Nti et al. considered the electricity load for a short-term forecast using an ANN. Since ANN belongs to the class of flexible nonlinear models, authors looked into its capability in modeling complex relationships of data. Weather factors including temperature, humidity, and wind speed were integrated with historical electrical usage data to train the artificial neural network. This type of holistic approach let the model learn usage patterns and weather conditions that drive variability in electricity demand. Consequently, the ANN model was shown to create highly accurate one-day-ahead forecasts of electricity load, way better when compared to conventional statistical methods. The competence of the model to integrate more data and to learn from them was the reason for its superior performance. By analyzing both historical load data and relevant weather factors, the ANN provided more precise and reliable forecasts. This advancement highlights the benefits of using machine learning techniques, such as ANN, for short-term load forecasting, offering a more robust alternative to conventional methods and improving overall prediction accuracy in energy management.\cite{nti2020electricity}.
+
+\newline
+
+Another machine learning algorithm, Random Forest, in particular, has also seen quite effective applications in electricity load forecasting, showing promising results. Using the data and characteristics, this ensemble learning approach builds numerous decision trees to provide predictions. This method improves the model's capacity to generalize from the training set of data while assisting in the fight against overfitting. The Random Forest algorithm is great at finding complex and nonlinear relationships and interactions between input variables. These are two major roles of neural networks. This feature is very useful in forecasting electricity load, as consumption depends on a wide range of factors like weather conditions, time of the day, and economic variables. By integrating the outputs from multiple decision trees, the Random Forest algorithm may work well to interpret such varied influences and yield much more accurate predictions. It can operate well under non-linearities and interactions, making it a very potent load forecasting tool; it yields better accuracy compared to simpler models that could be quite challenged by complexities in data derived from the real world. Source: Wang et al., The researchers employed a Random Forest model as they tried to predict the short-term electrical usage. They have contrasted the Random Forest model's performance with that of other conventional techniques like autoregressive integrated moving average and exponential smoothing. The outcome demonstrated that the Random Forest model outperformed the conventional techniques and produced load estimates that were far more accurate.\cite{wang2023comparative}
+The long short-term memory neural network has become popular to forecast power load. The long short-term memory neural network has been found very useful in recurrent neural networks due to the fact that these are good at finding patterns and correlations in time series data for forecasting power usage.\cite{wang2023ceemdan}.
+
+
+\textbf{Work Proposed}:   
+\newline
+This work applies five different approaches to forecasting: ARIMA, Support Vector Machines, Random Forest, Recurrent Neural Networks, and Linear Regression to extend prior studies in the field. The evaluation of performance and a comparison between those methods will be conducted with a shallow insight into the technical specifics of each technique. The research will systematically compare the performance of each method for forecasting electricity load and outline which methods are the most effective techniques. This approach of comparison makes it possible to get models that perform best and, therefore, provide insight into improving the accuracy of forecasts of electricity loads. The results point out the comparative strengths of each method and provide guidance to future research and application for the best strategy in forecasting. 
+
+\chapter{Investigation and Description of Data}\label{ch:3}
+\section{Overview of the data set}
+The key files contained in the dataset include: Load\ry.csv, temperature\_history.csv, benchmark.csv, and weights.csv. Each of the above files carries specific types of data that are essential for both understanding and predicting electricity load.
+The file Load\_history.csv provides details on the data on electrical load in various zones. This also includes the recording of hourly loads, which is quite necessary for the identification and analysis of consumption patterns across time. By making such an observation, one can decipher how the demand for electricity changes with respect to different zones and times.
+The temperature\_history.csv file contains historical temperature data for different zones. This dataset records temperatures at various times, which allows us to study the relationship between temperature changes and electricity load. Understanding how temperature affects electricity consumption helps improve forecasting accuracy by accounting for this significant environmental factor.
+These weights are included in the following CSV file: weights.csv. The weights could be used to aggregate or combine a zone-specific forecast into an overall load system-wide forcast forecast. We can make an educated judgment, by looking at this file, how the different forecasts combine into one forecast that best represents the overall system-wide electricity demand.
+
+Together, these files represent a dataset that forms the base for substantial analysis in the field of electricity load forecasting. Traditionally, it combines load data, temperature data, and zone weight factors into comprehensive and correct forecasts of electricity demand, considering historical trends and environmental factors.
+
+\section{Data description}
+This will lead to a number of challenges and opportunities while pre-processing the dataset. In particular, load\_history\_df may contain non-numeric values; it may contain indicators for missing data that would need to be carefully cleaned or converted to numeric formats so as not to compromise the analysis of accuracy. This step is very important because it can make the data consistent and, hence, reliable to generate valid results, especially in time-series forecasting, where the use of numbers is essential.
+\newline
+On the other hand, hourly temperature measurements (h1 to h24) are displayed as integers and floating-point values in the temperature\_history\_df dataset. Because direct measurements were not available, some of these data are thus represented as floats, which most likely reflect averages or approximated values. In comparison to the load\_history\_df, this format implies that the temperature data may be clearer and easier to use for analysis.
+Integer data types are used in the benchmark\_df and weights\_df data frames, which include zone identifiers and hourly measures. Because of this consistency in data formats, less intensive pre-processing is required for simple comparisons and weighing computations.
+
+\newline
+With these differences, load\_history\_df will most likely need some preprocessing to go into a cleaner and uniform format with the other data frames. This may involve parsing numerical values, cleaning the missing data, and probably normalizing timestamps if they are not already in a standard format. It would be worth performing proper cleanup to get formats uniform for accurate and effective time-series forecasting and overall analysis. The appropriate preprocessing will be able to make the integration in further analysis stages smooth and the results more reliable.
+
+\section{Applicability of the 2012 dataset}
+Another exciting thing would be the determination of this research's application, depending on the use of the 2012 data set. This period is useful for an overview of consumption in a revolutionary time in energy management-that is, this is within the early phases of widescale deployment of smart meters. Their adoption represented a radical change in the way energy usage data was collected and analyzed change similar to those made early on as power consumption patterns began to shift.
+The research now applies modern machine-learning algorithms to this historic data set, allowing a retroactive assessment of the forecast skills over a time period when data-gathering methods themselves were in evolution. Such a method provides information that may inform future grid management methods, in addition to demonstrating the precision and utility of forecasting models during the transitional phase. Analysis of the data of this critical period may reveal trends and challenges pertinent to current and future energy management strategies, hence the output of this particular value for improving forecast and grid functionality.
+
+\section{Gathering Data and Data pre-processing}
+\newline
+Below is the import of the Pandas library, which will be used for the pre-processing of the data and also for manipulating the dataset. In this respect, the missing values need to be cleaned, and the non-numeric characters have to be transformed into numeric data in preparation for analysis. The four different datasets are imported via Pandas, namely: Load\_history.csv, temperature\_history.csv, Benchmark.csv, and weights.csv.
+Pandas make this process easier because loading and then exploring the data become very efficient; hence, missing values are easily detected and managed. It also assists in converting character data into numeric format for consistency in the data sets. This step is important in ensuring accurate data analysis and forecasting. Through the use of Pandas, it means the datasets have been brought into a workable format where further analysis will be based on refined and neat data.
+\newline
+Numerical values are cleaned to remove commas from the values in the dataset load\_history\_df. This translation is necessary because the machine learning algorithms require numeric input.
+
+\begin{figure}[h!]
+  \centering
+  % First row with the first two images
+  \begin{minipage}{0.35\textwidth}
+    \includegraphics[width=\linewidth]{1.png}
+    \caption{Values that are absent in Load\_history}
+    \label{fig:image1}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.35\textwidth}
+    \includegraphics[width=\linewidth]{2.png}
+    \caption{Values that are absent in Temperature\_history}
+    \label{fig:image2}
+  \end{minipage}
+
+  \vspace*{1cm} % Add some vertical spacing between the rows
+
+  % Second row with the next two images
+  \begin{minipage}{0.35\textwidth}
+    \includegraphics[width=\linewidth]{3.png}
+    \caption{Values that are absent in Benchmark}
+    \label{fig:image3}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.35\textwidth}
+    \includegraphics[width=\linewidth]{4.png}
+    \caption{Values that are absent in Weights}
+    \label{fig:image4}
+  \end{minipage}
+\end{figure}
+\newline
+
+Missing value is one of the most frequent problems that occur in real-world data. This is a very crucial issue concerning the performance of machine learning models. In this work, the missing values in a series were estimated from a linear prediction from the surrounding ones using the so-called technique of linear interpolation. Following the approach presented, I used two datasets, Load\_history and Temperature\_history, to ensure continuous data in time series.
+\newline
+In handling missing data in the Benchmark and Weights datasets, a very simple approach has been adopted, where rows containing missing data were dropped off using the drop method. This approach will make sure that the datasets used in the forecasting models remain unbiased and accurate. The removal of rows with incomplete data saves us from probable inaccuracies due to incompletely available information. Because this number is limited, it is a simple deletion strategy that is not only effective but also efficient. Because the datasets will have the integrity of holding complete and reliable data for subsequent analyses and forecasting models, this minimizes risks of skewed results or errors that would lower the quality of the forecast in general.
+
+\section{Exploratory of Data Analysis}
+EDA is a preliminary and vital job while analyzing data. It involves an investigation into a number of factors in the given dataset to come up with its underlying characteristics. In real practice, analysts do EDA by investigating time series, distribution of variables, and relationships among different variables to understand the data comprehensively. This process is considered crucial before the deployment of machine learning models, as it gives insight into the structure of the data: the distribution of variables, anomalies that might occur, and correlations between features. EDA informs feature selection, a required step in narrowing down the most useful input variables for the ML model. By knowing the underlying pattern and relationship of data, analysts can choose features that enhance the predictive accuracy of a model and discard the irrelevant ones. The whole process of improving the performance of a model saves computational costs since only the most relevant features are focused on. Overall, EDA will ensure that the data is well-understood and properly prepared for more accurate and efficient machine learning models.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{eda1.png}
+\caption{The distribution between temperature and load}
+\label{fig:eda1}
+\end{figure}
+ In \textbf{Figure 3.5}, The h1\_load histogram underlines the recurrence patterns in consumption. It shows the frequency of various load levels; hence, it represents the variability in power demand. The temp histogram shows the distribution of the temp measurements into how electricity consumption varies with respect to climate. These two histograms taken together suggest a combined representation of demand for electricity and temperature distribution, hence showing the relation between climate variables and energy use.
+ \newline
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{eda2.png}
+\caption{Relationship between Temperature and Load}
+\label{fig:eda2}
+\end{figure}
+\newline
+The heat map shows the relationship between temperature and electrical load for each hour of the day. From this heat map, it can be observed that the pattern of correlation between temperature and electrical load is different for different times of the day. During the early part of the day, the correlation was weak and negative, so one might assume that temperature has little or no impact on the electricity load. Then during the middle part of the day, the correlation becomes positive, which signifies higher temperatures relate to a higher demand for electricity. In the course of the day going to evening, it goes back to negative. This reinstates the very fact that with time, the temperature factor affects electricity load differently. The pattern therefore underlines a complex dependency of temperature versus electrical demand, which is time dependent.
+\newpage
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{5.png}
+\caption{Connection between temperature and load}
+\label{fig:5}
+\end{figure}
+\begin{flushleft}
+\textbf{Figure 3.7} Two scatter charts that illustrate the connection between temperature and load.
+\end{flushleft}
+\textbf{load h1 vs temp h1 GraphPlot}: We can see from the distribution of the graph that the electrical load varies with temperature. From this graph, the concentration of data points on the lower end of the scale for temperature is indicative that many measurements were recorded in cooler temperatures, indicating that the lower temperatures are more common in this dataset.
+The load values exhibit a broad range but demonstrate a discernible trend: as the temperature rises, the electrical load generally increases, reaching a peak at a certain temperature. Beyond this peak, however, the load tends to decrease slightly. This pattern suggests that while higher temperatures initially lead to increased electricity demand, possibly due to greater use of cooling systems, there is a threshold beyond which the demand may level off or decline. This trend highlights the nuanced relationship between temperature and electricity load, with variations in load based on temperature changes.
+\newline
+\textbf{load h2 vs temp h2 GraphPlot}: The load values in this dataset span a wide range of temperatures, similar to the h1 data. On the other hand, the dataset shows certain temperature ranges where measurements are more frequent to capture specific temperatures with higher data density. Unlike the h1 dataset, which might show a clearer trend, the link between temperature and load is less clear-cut. In spite of this, it is often observed that load rises with temperature, pointing to a pattern in which rising temperatures are linked to rising power consumption.
+
+Both datasets demonstrate that the load does not exhibit a uniform pattern of increase or decrease with temperature. Instead, there is considerable scatter in the data, which points to significant variability. This variability suggests that the relationship between temperature and load might not be linear and could be influenced by additional factors. The observed scatter indicates that other variables could be impacting load, such as time of day, occupancy patterns, or different usage behaviors. Therefore, while there is a general trend of increasing load with temperature, the actual relationship appears complex and non-linear, influenced by various factors beyond a simple direct correlation.
+\newline
+\newline
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{6.png}
+\caption{The pattern of daily load in zone 1}
+\label{fig:eda2}
+\end{figure}
+The graph in \textbf{Figure 3.8} The daily total load graph for Zone 1, which spans from the middle of 2005 to the end of 2008, shows some interesting trends in the amount of energy used. All things considered, the load seems to be rather steady, with some discernible oscillations that correspond with seasonal variations in demand. The energy demand has a regular pattern during times of stability, indicating that consumption does not change much over time. This stability suggests that there were no notable changes in the region's energy consumption, since there may not have been many changes in the population or industrial activities. Rather than sudden shifts in the underlying load trends, the observed fluctuations most likely reflect seasonal variables like temperature changes or seasonal consumption patterns. This trend shows that the total energy consumption in Zone 1 stayed constant despite irregular fluctuations.
+\newline
+During early 2007, the daily load for Zone 1 was trending upward, reflecting the steady increase in the demand for electricity. The upward trend could be explained by, among other variables, the effects of industrialization and economic growth within the region. As industries expand and the economy starts to develop, energy consumption sometimes also increases due to the rise in production activities and business operations, as well as overall economic activities. This incremental growth indicates that economic development influences energy demand positively and how regional growth and industrious activities might have surged electricity consumption over a period of time.
+\newline
+Towards the end of the timeline, there is a major spike in the daily load that is a significant deviation from the stability of the pattern that has occurred to this point. That is a weird jump and may represent an important change in the energy usage of the zone. This would be a sort of anomaly, a deviation from the pretty consistent trend going on before it might point out factors underneath and probably to be taken into consideration for further investigation. Possible causes that may bring about this increase could be attributed to sudden industrial activity, infrastructural changes, or even sudden hikes in energy usage. Further research will be needed to explain this deviation, which will show the real causes of this sudden increase in demand and what its consequences are on energy management in the region.
+
+\chapter{Proposed Methodology}\label{ch:4}
+This section presents a number of methods using machine learning and statistical techniques to give better performance regarding the accuracy of load demand forecasts of electricity. Each method them will be judged upon its ability to predict the load demand by considering the performance metric Root Mean Squared Error. The RMSE is an accepted and widely used measure to assess the accuracy of forecasting models. Since the RMSE is built from the absolute differences between predicted and actual values, computation of the RMSE for each model will enable an assessment of relative predictive performance emanating from the different methodologies and thus provide identification of the best approach. Therefore, the comparison will be helpful in drawing a conclusion on the best model with the highest precision of electricity load forecasting, thus remaining very helpful for reliable energy management and decision-making\cite{chai2014root}. Historical and weather data of load will be applied in the estimation and validation of the different models developed in the study. These models will be developed while paying due attention to both traditional statistical techniques and modern machine learning techniques; the performance of these techniques will then be analyzed accordingly. These models developed in the study will compare the levels of accuracy of each model to identify the best technique in load forecasting. The purpose of this study is to contribute to the literature by comparing different models and showing how the integration of each model into machine learning techniques can further improve the forecasts made by traditional models. This would hopefully lead to those models that have superior performance for reliable forecasts of electricity load to help in better energy management and planning.
+\section{Implementation of the Environment}\label{sec:3.1}
+All models presented in this study have been executed using Google Colab, a cloud-based platform quite conducive to shared programming in Python. Google Colab is an all-around environment that provides the possibility of constructing and evaluating machine learning models. A sufficient justification for using this platform for the study would be that it contains some of the fundamental libraries that are needed in data analysis and machine learning, such as Panda, NumPy, scikit learn, TensorFlow, and Statsmodels. These are the libraries that equip one with the ability to manipulate large datasets, create predictive models, and also provide a clear visualization of performance in results at very high efficiency. Besides, Colab provides free GPU resources; therefore, the acceleration in model training and model testing will be boosted as an exceptionally powerful tool for fast development and optimization of machine learning models in electricity load forecasting. The simplicity and accessibility of this platform mean it is an excellent choice for this research. 
+\section{Auto-regressive integrated moving average}\label{sec:3.2}
+\textbf{Overview}:
+\newline
+Conventional statistical methods for the forecasting of time series contain the Auto Regressive Integrated Moving Average model or ARIMA. Because of its efficiency in the detection of patterns and trends across temporal periods, this tool has become important in forecasting electricity demand. In this dissertation, ARIMA implementation was done to forecast electricity consumption based on historic load patterns.
+One of the salient features of the ARIMA model involves handling non-stationary data, which is a typical phenomenon in the area of electricity load forecasting due to the presence of time trends and variations. Using the technique of differencing, ARIMA transforms non-stationary data into a stationary series for easy modeling. The model further embeds autoregressive elements, which exploit the correlation between a certain observation and its preceding values, and a moving average component that describes the relationship of the observation with residual errors experienced in previous time periods.
+These distinctive features make ARIMA quite powerful in time series forecasting: both short-run variations and long-run patterns can be captured. ARIMA has been an important benchmark for research in the field of electricity load forecasting due to its simplicity, interpretability, and efficiency in handling time series data, although newer machine learning methods have captured more attention.
+\newline
+\textbf{Data Preparation}:
+\newline
+The hourly temperature and power load measurements are included in the data collection. The first step in cleaning the data involves erasing outliers and interpolating missing values to ensure the accuracy of the data. After the cleaning of the data, the data is reshaped into a long format. This helps in getting the time series analysis. This reform ensures the sorted record of data in stack order according to time, hence making stronger observability over time-based patterns and interrelations of variables key to proper forecasting of electricity load.
+\newline
+\textbf{Model Configuration}:
+\newline
+Model calibration and evaluation were conducted in an iterative approach using the ARIMA model. Because of that, it was found that ARIMA would be chosen for this forecast. An autoregressive component of AR = 1 shows the fact that the electricity load from the past hour influences the present one, hence showing interdependencies in the short run. I=1 differencing the part to make the series stationary, which reduced the problem of non-stationarity and cured the mean. In addition, temperature was incorporated as an exogenous regressor variable because it had a strong impact on the patterns of electricity consumption. Normally, with a rise in temperature, energy use for heating or cooling applications also changes. The combination of the ARIMA temperature as an external variable remarkably enhances this model to make an exact short-term prediction of the electricity load.
+\newline
+\textbf{Validation and Testing }:
+\newline
+At validation, the rolling forecast origin approach was used to estimate the model parameters in a sequence, as new data became available. This methodology makes the model truly time-dependent, robust over different periods of time, while it always adjusts to new information. Upgrading the model in this way ensures that more precise and reliable forecasts are made in the course of time. Forecasting was done for up until 168 h (1 week) for computational feasibility; it still enabled sufficient use for achieving appliance load forecasting, while performance and processing requirements were theoretically compromised. The overall gain on the accuracy of forecasting was improved.
+\newline
+\textbf{Limitations}:
+\newline
+ARIMA considers a linear connection that may not hold between the past and future values in intricate networks, such as the electrical grid. The success of this approach largely rests on time series stationarity; therefore, pre-processing and differencing are normally indispensable but carry a great deal of hassle. This leads to a model's drawback in terms of lower accuracy when nonlinear dynamics are concerned, with further labor regarding stationarity before modeling. As a result, RIMA might fail to capture complexities and variabilities of such systems and may not perform as well as in some realistic applications.
+\newline
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{7.png}
+\caption{Real versus expected load}
+\label{fig:eda2}
+\end{figure}
+
+\textbf{Figure 4.1} The plotted graph of actual versus projected electricity load shows the real data exhibits a seasonal variation and, on any given day, can be seen to have peaks and troughs associated with human behavior. However, the predictions from the ARIMA model fail to capture these high-frequency fluctuations and instead exhibit a clear upward trend without capturing the periodic behavior. This is indicative of an underfitting problem, where the model parameters are insufficient to capture the seasonality inherent in the data. As a result, the ARIMA model cannot capture the short-term, periodic patterns which are an important aspect of any electricity load forecast. This makes it less accurate during the prediction of load variations influenced by daily cycles.
+
+\section{Linear regression}\label{sec:3.2}
+\textbf{Overview}:
+\newline
+One of the most popular statistical techniques for describing the relationship between variables, such the one between temperature and electricity consumption, is probably linear regression. Innately simple and interpretable, it remains one of the more popular choices, especially as a baseline model in many forecast studies. Through the identification of a basic linear relationship, it offers a straightforward concept whereby it is easy to understand how changes in temperature may potentially affect electricity consumption. The clarity of the model facilitates straightforward interpretation of the coefficients, thereby providing insights into both the magnitude and directionality of these relationships.
+Although linear regression may not detect intricate patterns such as nonlinearities or interactions, it provides an important first framework on which comparative analyses can be conducted. It serves as a benchmark to evaluate more complex models, which allows analysts to understand whether greater complication is substantially improving the accuracy of forecasts. Despite its limitations, linear regression remains a reliable and useful tool that offers clarity and interpretability when modeling these relationships for electricity load forecasting.
+\newline
+\textbf{Data Preparation}:
+\newline
+Here, the same dataset has been used as for the evaluation of ARIMA so that consistency can be maintained across models. Since, Multi-collinearity testing was an essential step in this procedure since the linear regression models are sensitive to the intercorrelations between the predictor variables.
+ This ensures that the model will provide appropriate relationships between the variables and avoid variance inflation in coefficient estimates, thus improving the overall model's reliability.
+\newline
+\textbf{Configuration Model}:
+\newline
+The implementation of the Linear Regression model was conducted utilizing the conventional least squares approach. The model operated under the assumption of a linear association between temperature and electricity consumption. Drawing from previous research, temperature was identified as a predictor variable due to its influence on electricity demand.
+\newline
+\textbf{Testing and Validation}:
+\newline
+The model was trained using the train-test split methodology, meaning the data from the previous week had to be reserved for testing. That would ensure that a model has been trained in the past and is used to predict the electricity load in the future. On the performance evaluation aspect, the metric used in the paper involves the RMSE. It expresses the average difference between the model predictions and reality while weighing larger mistakes much more. The RMSE has useful applications by providing full details on the capability of the model in predicting future electricity consumption based on the previous trend, thereby presenting a clear predictive effectiveness evaluation.
+\newline
+\textbf{Limitations}:
+This model, though simple, is constrained by its linearity assumption and hence cannot grasp deeper relationships that might exist in the data. Besides, the presence of outliers does pose a problem; thorough preprocessing is needed to ensure accurate results. These could distort predictions of a model; hence, thorough cleaning and preparation of data before deployment are necessary, thereby showing weaknesses of the model to changes in data quality.
+\newline
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{8.png}
+\caption{Real versus expected load}
+\label{fig:eda2}
+\end{figure}
+
+\textbf{Figure 4.2} Significant discrepancies in the real and forecasted electricity load, nonetheless, insinuate that the forecasted load was always under the real load. Empirical data have been cyclical-fluctuating and peaking-which the model cannot capture; these findings do outline the bound forecasting accuracy of the model. What this means is that the inability of the model to account for complex patterns in electricity use like daily or seasonal variations means this. This model linearity assumption grossly simplifies the data and hence ignores the vital nonlinear and cyclic patterns in it. These further support higher-order methods, such as seasonal ARIMA or machine learning-based methods, for more accurate forecasting of electricity load.
+
+\newpage
+\section{Support Vector Machine}\label{sec:3.3}
+\textbf{Overview}:
+\newline
+Considering the limitation of linear regression, which could model only a linear relationship between features, Support Vector Machines were chosen for their ability to resolve non-linear relationships. Support Vector Machines can be used to perform regression using different kernel functions; therefore, the model is allowed to learn complex patterns and interactions of the dataset. This makes SVM the right choice when modeling, since situations arise where not all relationships among variables could be linear, thus allowing superior performance in nonlinear dynamics estimation.
+\newline
+\textbf{Data Preparation}:
+\newline
+Data preparation followed the same stages as prior models, but with increased emphasis on feature scaling. Given that the SVM model is sensitive to the size of the input features, this is essential. All features contribute equitably to the model's performance and accuracy at the appropriate scale.
+\newline
+\textbf{Model Configuration}:
+\newline
+In order to evaluate the link between temperature and power demand, a linear kernel was used in the SVM model. Grid search was used to fine-tune the parameters. This method finds the optimum performing configuration by methodically assessing many parameter combinations. It maximises the accuracy and efficiency of the model.
+\newline
+\textbf{Validation and Testing }:
+\newline
+The cross-validation was performed, the methodology of which usually offers a general check of the performance of the model on various dataset subsets. This procedure reduces the risk of overfitting by ensuring that a model is tested against several divisions of the data and tends to drive more reliable and generalizable results.
+\newline
+\textbf{Limitations}:
+\newline
+However, SVM faces serious difficulties: its work is highly sensitive in choosing a proper kernel and tuning hyper-parameters. Model complexity may result in high training time, especially for big datasets or complex kernels. Another point is that the SVM - with nonlinear kernels, at least - is very hard to interpret. These kernels create complex boundaries for decisions that may not easily explain the logic underlying the model or how different features drive predictions, thus limiting transparency and ease of use.
+\newline
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{10.png}
+\caption{Real versus expected load}
+\label{fig:eda2}
+\end{figure}
+\textbf{Figure 4.3} Above is a visualization plotting the actual against the predicted electricity load. Data points are plotted around a line of best fit. Actually, this line represents the model's predictions, and the closeness of the points to this line reflects how well or badly the model is in predicting the actual values of the load. Where there are points closer to the line, that give good predictions; this means the model is doing well in those places. Noticeable prediction errors are where especially the spread of the points at higher load values the model does not seem to be doing well. This means perhaps the model might not be able to handle these higher load values as such. The closeness of the population of the points around the line for lower values of the load series indicates that the predictions from the model are closer to the actual values for this range. Overall, the model does well in predicting at least the lower loads but becomes weak for the higher values.
+\section{Random Forest}\label{sec:3.4}
+\textbf{Overview}:
+\newline
+Generally speaking, Random Forest is renowned for its excellent performance in regression problems, thanks to the ensemble approach that overcomes common issues such as overfitting, widely observed in individual decision tree models. It constructs multiple decision trees during training and averages their predictions, hence mitigating variance and biases affecting single trees. Each forest tree is built depending on a random set of characteristics and data in order to enhance the diversity factor and lower risks that this model overfits on any single lot of training data. The process of averaging smooths out the predictions and generalizes the solutions, which, in turn, makes Random Forest strong on complex regression problems. More importantly, it works well with big data and extracts even the most intricate relationship between features; hence, it is effective in carrying out reliable and accurate forecasts within a wide range of applications.
+\newline
+\textbf{Data Preparation}:
+\newline
+The Random Forest model followed the same steps in data preparation as that of the previous models. Since the Random Forest is a very powerful algorithm that can handle big datasets with diverse feature types, there was not much extensive feature engineering required. This model effectively manages a host of various input features and different scales, hence capturing complex relationships automatically without specialized pre-processing. This inherently built flexibility and robustness automatically make it versatile, for that reduces the need to manually perform adjustments or transformation in the feature set, lessening pre-processing time and narrowing focus on leveraging the model's ensembling for actual accurate predictions.
+\newline
+\textbf{Model Configuration}:
+\newline
+This Random Forest was iteratively tuned to ensure a balance between model performance and computational efficiency. The model is an ensemble of 100 decision trees that improves predictive performance with considerations of resource consumption. Another element explored within this model is feature importance, an attribute of the model itself that can be used to understand how temperature is related to electricity load. It helps in picking up the important features or factors in a model that have a significant impact on predictions, hence giving good insight into how temperature influences electrical consumption.
+\newline
+\textbf{Validation and Testing}:
+\newline
+In fact, there are two approaches to validation: cross-validation and the holdout method. Cross-validation will ensure that robust performance evaluation takes place by running different subsets of data through the model, while the holdout method checks the model for generalization to new data sets. The combined approach thus affords a comprehensive look at the accuracy and generalizability of the model.
+\newline
+\textbf{Limitations}:
+\newline
+Compared to simpler models, Random Forest is less interpretable and requires a large computing investment despite its great strength. Performance may be significantly impacted by one or two critical hyper-parameters: number of trees and tree depth. Proper tuning of these can significantly impact model accuracy and efficiency.
+\newline
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{9.png}
+\caption{Real versus expected load}
+\label{fig:eda2}
+\end{figure}
+\textbf{Figure 4.4} For larger load magnitudes, the variance between the scatter plot of the actual load and the load predicted using the Random Forest approach is very considerable. Even though the general performance is usually very good, a stretching of the points for high magnitudes of load already hints at the variance being high and the predicted and actual values are far from each other. This spread in data reflects that the Random Forest model does not predict higher magnitude load values with good accuracy, which is a shortcoming of this model when forecasting for such scenarios. While generally robust and accurate, inefficiency in the prediction of higher load values indicates a need to make possible adjustments or extra models which will work out the accuracy in those ranges so that good forecasts could be arrived at for every level of load.
+
+\section{Artificial Neural Network}\label{sec:3.5}
+\textbf{Overview}:
+\newline
+Indeed, multilayered neural tissues present in the human brain will allow ANNs to model the complex and nonlinear relationships of sets of variables. This essential capability will make the ANN an effective technique in terms of performing tasks that could be quite hard for traditional statistical models, such as ARIMA, to capture the intricate patterns among the variables. Exploiting multiple layers and nonlinear activation functions, ANNs are able to uncover subtle relationships and interactions in data; hence, they can provide a potentially powerful alternative for forecasting and pattern recognition in situations where simpler linear models may be inappropriate.
+\newline
+\textbf{Data Preparation}:
+\newline
+By scaling the features, StandardScaler was used to prepare the data for the ANN model. Making ensuring that every input characteristic contributes equally to the model's learning process is an important step in neural network models.
+\newline
+\textbf{Configuration of the Model }:
+\newline
+The ANN (Artificial Neural Network) is set up with two hidden layers, each comprising sixty-four neurons. ReLU activation function has been adopted for both to effectively capture the intricate patterns of the data. Training is established up to 100 epochs, with a batch size of 32, in order to achieve a good trade-off between thorough learning and computational efficiency. ReLU is the activation function that helps in improving the nonlinear relationship analysis capability of the model. The choice of epoch and batch size allows for effective training of the model without putting extra demands on computational resources, hence optimizing the performance with resource utilization.
+\newline
+\textbf{Testing and Validation}:
+\newline
+Model validation means tracking the loss function a model is being trained on, while side-checking its performance with a validation split on data it never saw. This technique will help in fine-tuning the hyperparameters and avoiding overfitting so as to ensure that the model generalizes well to new data, without moving too much based on just the training data.
+\newline
+\textbf{Limitations}:
+\newline
+ANN has been shown to be one flexible and powerful learning machine; its hyperparameters include the exact number of layers, neurons in it, and epochs that need to be tuned cautiously. Besides this, due to its black-box nature, the interpretation at the model decisions is highly complicated. The possibility of overfitting requires comprehensive model validation techniques that can ensure that the model generalizes well and does well on unseen data.
+\newline
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{11.png}
+\caption{Real versus expected load}
+\label{fig:eda2}
+\end{figure}
+In \textbf{Figure 4.5}, The data points are tightly bunched around the dashed-diagonal line that serves to indicate a positive correlation; the general trend in the load data is reasonably well modeled. It then follows that this model would work somewhat reasonably for the majority of the ranges in load value predictions. However, noticeable discrepancies at higher values of loads, where the predicted values are deviating from the actual ones, can be seen. These discrepancies emphasize some limitations in the accuracy of the model for load levels that are high, showing that while the model is proficient in the capture of general trends, further refinements may be required to improve its prediction capability for higher-value loads.
+
+
+\chapter{Results and Conclusion}\label{ch:5}
+A comparison done on different models for load forecasting of electricity supplies gives a good overview of the strengths and weaknesses of each model. Different models reviewed here are ARIMA, Linear Regression (LR), Support Vector Machine (SVM), Random Forest (RF), and Artificial Neural Networks (ANN). Each of these models produced results that showed the accuracy in various magnitudes as shown by its RMSE. For instance, ARIMA performs well in cases involving linear relationships but does not perform well in capturing non-linear patterns or high-frequency variations. However, linear regression is also likely to face problems in non-linearity and outliers. SVMs can handle the nonlinear relationship well but can be computationally burdensome and a bit less interpretable. Random Forest provides quite stable performance and can handle complex relations but may not be suitable for cases of higher load values. ANN has high predictive power related to describing intricate patterns; ANN is generally sensitive and hard to interpret. These results are to be analyzed in order to understand why one model performs better than another, helping make educated choices regarding which models best fit the particular forecasting need and nature of the available data.
+\newline
+\newline
+\textbf{Root Mean Square Error as the performance metric}
+\newline
+The Root Mean Square Error (RMSE) is one of the vital means of model performance evaluation in the area of electricity load forecasting. It characterizes the mean value of the difference between the values of forecasted load and the respective values actually observed. As the square root of the average of the squared differences between the two sets of data, the RMSE is computed. The lesser the value of RMSE, the lesser the difference between the model forecasting and the actual data-meaning higher the accuracy.
+Research has certified that the RMSE is an effective measurement in the evaluation performance of forecasting models. For example, Li et al. conducted research in which several machine learning models were tested and compared with each other, such as Support Vector Machines, Random Forest Regression, and LSTM neural networks. Li et al. used real-world electricity load data and applied the RMSE technique in their experiment to measure each model's performance. The results indicated that the minimum RMSE pertains to the LSTM model; thus, making it the most efficient when compared with other models for load forecasts. This evidences the value of RMSE in forecasting model evaluations and selection processes, with the LSTM model serving as a prime example of how efficient this model is in capturing complex patterns in load data. This type of model assessment underlines the importance of the RMSE in deriving and perfecting the best forecast methods.\cite{li2020novel}.
+
+\section{Autoregressive Integrated Moving Average (ARIMA)}
+    ARIMA produced a moderate score in forecasting electricity load, reflecting its capability for handling linear time series data well. In fact, ARIMA is good at capturing the seasonal trend, which may be present in electricity load data due to regular patterns such as daily or weekly cycles. However, its linear nature allows it to capture only non-linear relationships naturally part of the demand for electricity, probably due to complex factors such as weather changes and diversified consumers' behavior.
+Demand for electricity is naturally oscillating and influenced by many factors that input non-linearity into the data. The moderate performance of ARIMA underlines strengths in the analysis of basic demand patterns and seasonal trends but points at the same time to its limitation in capturing more fine-grained patterns. Since the demand to generate exact forecasted values is higher, the required needs and interest arise to look into the extensions and variants of ARIMA in order to treat nonlinear aspects of the demand for electricity. These could be extensions toward SARIMA (Seasonal ARIMA) or even further, using ARIMAX, which allows incorporating exogenous variables into the ARIMA model, enabling it to model complex relationships and improve predictive performance. Therefore, ARIMA serves as a good starting point for linear time series analysis, but its extensions have to be explored more for any nuanced and correct forecasting to be carried out in dynamic environments.
+\section{Linear Regression}
+    Among the models tested, linear regression produced the highest RMSE value a testament to its weakness in the forecast of electricity load. This reflects the battle of this model in capturing the complexities that are inherently contained in the pattern of consumption of electricity. While linear regression is indeed efficient at showing the straight-line relationship between temperature and the load of electricity, it cannot address more complex nonlinear dynamics driving the demand which is induced by changing weather conditions, consumer behavior, and other exogenous factors.
+While linear regression performs sub-optimally in this context, it is nevertheless a very useful tool for initial analysis. Its simplicity lends itself to an intuitive understanding of how temperature affects electricity consumption, providing clear insights into direct relationships. This inter-pretability in itself is quite useful in forming baseline models and understanding basic trends before deploying more complex methods.
+In all, it is expected that linear regression may not accurately reflect the details of the variations in electricity load forecasting. It provides a useful role in preliminary analysis to build foundational insights and sometimes serves as a useful reference against which more advanced models are compared. Other methods to be considered are those that introduce non-linearities and interactions between several influencing factors for high accuracy.
+\section{Support Vector Machine(SVM)}
+    SVMs can model nonlinear relationships. Therefore, SVMs are bound to perform better in power load forecasting than ARIMA and Linear Regression. Because the linear kernel can handle high-dimensional feature space very well, it was used in this analysis; it would imply that nonlinear trends in the power load data are exhibited by both ARIMA and linear regression.
+Could not detect. SVMs are particularly fit for complex forecasting tasks since they can operate on both linear and nonlinear data. The better performance of the model in this case proves that there are more complex interactions involved in the electrical demand data than simple linear dependencies. Thus, this implies that non-linear methods of modeling, such as the support vector machine, have to be engaged if the complexity of patterns in power demand is to be fully captured and forecast accuracy improved. 
+
+\section{Artificial Neural Network(ANN)}
+    ANN works nearly as well as Random Forest in terms of power load forecasting, confirming its capability to model complex, nonlinear relationships. The ANN architecture from this paper, using two hidden layers with 64 neurons each, has the ability to recognize complex patterns within the data. In the network, accurate load forecasting therefore rests on the capabilities for learning from the input in such a way that intricate non-linear relationships are grasped, which the layered structure of the network is able to provide. The competitive performance of ANN has already shown the increasing importance of deep learning methods in prediction applications. Even with the current RMSE value of the model comparable to Random Forest, more adjustments on the parameters may reduce RMSE and enhance the accuracy. Since data availability and the capacity of computers continue to improve, the capability will have deep learning models, such as ANN learn and adapt from such a complicated dataset, therefore turning out so valuable. Therefore, ANN is a helpful tool for the next studies on power load forecasting. As deep learning techniques appear essentially unavoidable in the development of more accurate forecasts, capable of handling the evolving complexity of power demand, they can perform complex pattern analysis and adapt to big volumes of data.
+
+\section{Random Forest}
+    Random Forest, being an ensemble method that embeds many decision trees, will outperform other methods. The exact load forecast this model provides will help capture most of the important nonlinear feature interactions. Inherent randomness within this process may help in reducing overfitting by improving generalization to new data in choosing and then combining many trees. The performance of the model confirms the strength of ensemble methods when dealing with real-world, intricate datasets that involve non-linear interactions amongst a number of variables. In addition to shedding light on variables that affect electricity consumption, Random Forest is an efficient method for dealing with large datasets and provides useful insights into the value of each feature. Random Forest has emerged as one of the most promising choices for the correct estimation of power demand forecast due to its robustness, capability of manipulating large data volumes and highlighting the most relevant aspects.
+
+\section{Conclusion}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{12.png}
+\caption{Comparison of RMSE values across methods}
+\label{fig:eda2}
+\end{figure}
+The success of the Random Forest model in electrical load forecasting is principally due to its methodological benefits and underlying concepts. Ensemble learning, which forms the heart of this efficacy, concerns how the predictions from various decision trees are combined in making a more reliable and precise forecast. To introduce some variation into the ensemble, each decision tree of Random Forest is trained on a different subset of characteristics and data. Such variation helps to identify various kinds of patterns and relationships that may exist in the data. Random Forest removes biases and errors that may creep into relying on a single decision tree by integrating various outputs generated by many decision trees. By integrating an ensemble method, the generalization ability of the model becomes better decreases the overfitting risk and enhances its handling capability for complex and nonlinear relationships present in the data. Besides this, Random Forest offers deeper insights into the variables of electricity consumption by handling huge datasets with ease and giving feature importance. These advantages methodologically add to the exceptional accuracy and dependability of the Random Forest technique in its predicaments, making it thus a very effective tool for predicting intricate datasets such as energy demand.
+
+\newpage
+% Comment the following THREE lines if you do NOT have an Appendix
+\appendix
+\chapter{Appendix}
+\textbf{Link to the dataset}: https://www.kaggle.com/competitions/global-energy-forecasting-competition-2012-load-forecasting/data
+\newline
+\newline
+
+\bibliographystyle{unsrt}
+\bibliographystyle{plain}
+\bibliography{biblio}
+
+\end{document}
+
