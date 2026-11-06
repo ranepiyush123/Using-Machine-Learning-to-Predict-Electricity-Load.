@@ -2,90 +2,114 @@
 
 ## 📌 Project Overview
 
-Electricity load forecasting is essential for maintaining power grid stability, reducing operational costs, and ensuring efficient energy distribution.
+This project investigates the application of statistical and machine learning techniques to predict electricity demand. Accurate electricity load forecasting is essential for maintaining power grid stability, optimising energy distribution, and reducing operational costs.
 
-This project explores the application of Machine Learning and statistical forecasting techniques to predict electricity demand using historical consumption data.
+The research compares five forecasting models using historical electricity consumption and temperature data to identify the most effective approach for predicting electricity demand.
 
-The study focuses on comparing three forecasting models: **ARIMA, Support Vector Machine (SVM), and Random Forest**, to understand their effectiveness in electricity load prediction.
+**Academic Dissertation | September 2024**
 
-## 🎯 Project Objectives
+## 🎯 Objectives
 
-- Analyse historical electricity consumption patterns.
-- Explore trends and fluctuations in electricity demand.
-- Apply statistical and Machine Learning forecasting techniques.
-- Compare the performance of ARIMA, SVM, and Random Forest.
-- Identify an effective approach for electricity load forecasting.
-- Support improved energy planning and resource management.
+- Analyse historical electricity consumption and temperature patterns.
+- Perform exploratory data analysis and data preprocessing.
+- Develop and evaluate five forecasting models.
+- Compare predictive performance using Root Mean Squared Error (RMSE).
+- Identify the most effective approach for electricity demand forecasting.
 
-## 🛠️ Technologies & Methods
+## 🛠️ Technologies Used
 
 **Programming Language:** Python
 
-**Forecasting Models:**
-- ARIMA (Autoregressive Integrated Moving Average)
-- Support Vector Machine (SVM)
-- Random Forest
+**Libraries:** Pandas, NumPy, Scikit-learn, TensorFlow, Statsmodels
 
-**Data Science Techniques:**
-- Data Preprocessing
-- Exploratory Data Analysis (EDA)
-- Time Series Analysis
-- Feature Engineering
-- Predictive Modelling
-- Model Evaluation
+**Development Environment:** Google Colab
+
+**Techniques:** Data Preprocessing, Exploratory Data Analysis, Time Series Forecasting, Regression, Ensemble Learning, Neural Networks
+
+## 🤖 Machine Learning Models
+
+Five models were investigated:
+
+1. **ARIMA:** Statistical time series forecasting.
+2. **Linear Regression:** Baseline regression model.
+3. **Support Vector Machine (SVM):** Support vector regression for electricity demand prediction.
+4. **Random Forest:** Ensemble learning using multiple decision trees.
+5. **Artificial Neural Network (ANN):** Neural network with two hidden layers containing 64 neurons each.
+
+## 📂 Dataset
+
+The research uses historical electricity consumption and temperature data from the Global Energy Forecasting Competition dataset.
+
+The dataset includes:
+
+- `Load_history.csv` — Historical hourly electricity demand.
+- `temperature_history.csv` — Historical temperature observations.
+- `Benchmark.csv` — Benchmark forecasting data.
+- `weights.csv` — Zone-specific weighting information.
+
+**Dataset Source:** [Kaggle](https://www.kaggle.com/competitions/global-energy-forecasting-competition-2012-load-forecasting)
 
 ## 🔍 Methodology
 
-**1. Data Collection and Preparation**
+### 1. Data Preprocessing
+- Cleaned and converted numerical data.
+- Handled missing values using linear interpolation.
+- Prepared historical load and temperature datasets for analysis.
 
-Historical electricity consumption data is used to examine demand patterns. Data preparation may include handling missing values, organising timestamps, and preparing features for modelling.
+### 2. Exploratory Data Analysis
+- Examined electricity consumption distributions.
+- Investigated relationships between temperature and electricity load.
+- Visualised hourly consumption patterns and temporal trends.
 
-**2. Exploratory Data Analysis**
+### 3. Model Development
+- Implemented five forecasting approaches.
+- Applied model-specific preprocessing and parameter tuning.
+- Generated predictions for comparison with actual electricity demand.
 
-Electricity consumption patterns are investigated to understand trends, seasonal variations, and fluctuations in demand.
+### 4. Model Evaluation
+- Evaluated model performance using RMSE.
+- Compared actual and predicted electricity consumption.
+- Analysed the strengths and limitations of each forecasting technique.
 
-**3. Model Development**
+## 📊 Key Results
 
-Three forecasting approaches are investigated:
+| Model | Findings |
+|---|---|
+| Random Forest | Best overall forecasting performance |
+| Artificial Neural Network | Competitive accuracy, close to Random Forest |
+| Support Vector Machine | Captured complex relationships |
+| ARIMA | Limited ability to capture short-term fluctuations |
+| Linear Regression | Highest RMSE among the evaluated models |
 
-- **ARIMA:** A statistical time series model that captures temporal dependencies.
-- **SVM:** A machine learning approach capable of modelling complex relationships in electricity consumption.
-- **Random Forest:** An ensemble learning algorithm that combines multiple decision trees to generate predictions.
+### Key Finding
 
-**4. Model Evaluation**
+**Random Forest achieved the strongest overall forecasting performance**, demonstrating the effectiveness of ensemble learning in capturing complex relationships between electricity demand and influencing variables.
 
-The forecasting models are compared to assess their predictive performance and suitability for electricity demand forecasting.
+Artificial Neural Networks also demonstrated promising performance, while traditional statistical methods struggled with more complex consumption patterns.
 
-## 📊 Results and Findings
+## 🌍 Practical Applications
 
-The project investigates the strengths and limitations of traditional statistical forecasting and machine learning methods.
-
-Detailed evaluation results, including prediction accuracy and model comparisons, will be documented using the experimental results from the dissertation.
-
-## 🌍 Real-World Applications
-
-- Smart grid management
-- Electricity demand prediction
-- Energy distribution optimisation
-- Power system planning
+- Electricity demand forecasting
+- Smart grid optimisation
+- Energy resource planning
+- Power distribution management
 - Operational cost reduction
-- Efficient resource allocation
 
 ## 🚀 Future Improvements
 
-- Explore deep learning approaches such as LSTM.
-- Incorporate additional weather and seasonal features.
-- Investigate real-time electricity demand forecasting.
-- Develop an interactive dashboard for visualising predictions.
+- Explore LSTM and hybrid forecasting models.
+- Investigate additional weather and seasonal features.
+- Improve hyperparameter optimisation.
+- Develop an interactive electricity demand forecasting dashboard.
 
 ## 👨‍💻 Author
 
 **Piyush Rane**
 
-Aspiring Data Scientist | Machine Learning | Python
+Aspiring Data Scientist | Python | Machine Learning
 
 [GitHub Profile](https://github.com/ranepiyush123)
 
 ---
 
-⭐ This project explores how data-driven forecasting can support more efficient and reliable electricity management.
+*Academic research completed in September 2024.*
